@@ -1,25 +1,30 @@
 # Mistral-7B Resume Fine-tuning Project
+
 This project demonstrates how to fine-tune the Mistral-7B-Instruct model for resume-based question answering using LoRA (Low-Rank Adaptation) technique.
-## Requirements
-bash
+
+## Part 1 - FineTuning and Saving Model 
+
+### Requirements
+```
 pip install -q -U transformers datasets accelerate peft trl bitsandbytes wandb sentencepiece
-## Project Structure
+```
+###  Project Structure
 The project uses the following key components:
 Base Model: Mistral-7B-Instruct-v0.1
 Training Method: LoRA (Low-Rank Adaptation)
 Quantization: 4-bit quantization using BitsAndBytes
-## Configuration
-### Model Settings:
+###  Configuration
+####  Model Settings:
 Load in 4-bit precision
 Quantization type: nf4
 Compute dtype: float16
 Double quantization enabled
-### LoRA Parameters:
+####  LoRA Parameters:
 Rank (r): 16
 Alpha: 32
 Dropout: 0.05
 Target modules: up_proj, down_proj, gate_proj, k_proj, q_proj, v_proj, o_proj
-## Training Parameters
+###  Training Parameters
 ```
 training_arguments = TrainingArguments(
     output_dir="./results",
@@ -33,27 +38,32 @@ training_arguments = TrainingArguments(
     warmup_steps=10
 )
 ```
-## Dataset Preparation
+###  Dataset Preparation
 The training data should be in CSV format with 'question' and 'answer' columns. The script preprocesses the data into the following format:
 
 [INST] Question [/INST]
 Answer
 
-## Usage
-Set up your Hugging Face token
-Prepare your dataset in CSV format
-Run the training script
-The model will be saved and can be pushed to Hugging Face Hub
+### Training 
 
-## Example usage:
+Trained using LoRA and saved to HuggingFace repo of yours
+
+
+## Part 2 - Testing with Gradio UI 
+
+### Requirements
+transformers
+torch
+accelerate
+bitsandbytes
+gradio
 ```
-prompt = "What is your question?"
-instruction = f"[INST] {prompt} [/INST]"
-pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=128)
-result = pipe(instruction)
+pip install transformers torch accelerate bitsandbytes gradio
 ```
-## Future Improvements
-Consider using Axolotl for better fine-tuning
-Implement evaluation using LM Evaluation Harness
-Explore alternative quantization methods (GPTQ, GGUF, ExLlamav2, AWQ)
-Test with different model architectures
+
+### Web Interface
+The application provides a simple web interface where users can:
+Input questions about Vishwas's resume
+Receive AI-generated responses based on the resume content
+Access the interface through a shareable link
+
