@@ -2,6 +2,9 @@
 
 This project demonstrates how to fine-tune the Mistral-7B-Instruct model for resume-based question answering using LoRA (Low-Rank Adaptation) technique.
 
+Part 1 - Run 'Save_FineTuned_Model.ipynb' to train and save your final model to huggingface
+Part 2 - Run 'Testing_Finetuned.ipynb' to load the saved model from HF and run it with Gradio UI(just an UI Library)
+
 ## Part 1 - FineTuning and Saving Model 
 
 ### Requirements
